@@ -1,0 +1,98 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "fullcalendar",
+        "scope": null,
+        "escapedName": "fullcalendar",
+        "name": "fullcalendar",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/home/ec2-user/environment/blog/schedule"
+    ]
+  ],
+  "_from": "fullcalendar@latest",
+  "_hasShrinkwrap": false,
+  "_id": "fullcalendar@5.10.2",
+  "_inCache": true,
+  "_location": "/fullcalendar",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/fullcalendar_5.10.2_1644430555540_0.12599779326272564"
+  },
+  "_npmUser": {
+    "name": "arshaw",
+    "email": "arshaw@arshaw.com"
+  },
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "fullcalendar",
+    "scope": null,
+    "escapedName": "fullcalendar",
+    "name": "fullcalendar",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/fullcalendar/-/fullcalendar-5.10.2.tgz",
+  "_shasum": "182cdfb285b8a36da652bd990e43655469304312",
+  "_shrinkwrap": null,
+  "_spec": "fullcalendar",
+  "_where": "/home/ec2-user/environment/blog/schedule",
+  "author": {
+    "name": "Adam Shaw",
+    "email": "arshaw@arshaw.com",
+    "url": "http://arshaw.com/"
+  },
+  "browserGlobal": "FullCalendar",
+  "bugs": {
+    "url": "https://fullcalendar.io/reporting-bugs"
+  },
+  "dependencies": {},
+  "description": "An easily consumable combination of standard plugins",
+  "devDependencies": {
+    "@fullcalendar/bootstrap": "~5.10.1",
+    "@fullcalendar/bootstrap5": "~5.10.2",
+    "@fullcalendar/core": "~5.10.1",
+    "@fullcalendar/daygrid": "~5.10.1",
+    "@fullcalendar/google-calendar": "~5.10.1",
+    "@fullcalendar/interaction": "~5.10.1",
+    "@fullcalendar/list": "~5.10.1",
+    "@fullcalendar/timegrid": "~5.10.1"
+  },
+  "directories": {},
+  "dist": {
+    "shasum": "182cdfb285b8a36da652bd990e43655469304312",
+    "integrity": "sha512-a5qS3RaR5kRZyl5lVGJaPMQorY5hyuJvVONFwnQzNSqL32HZ9COq9ROuoaa/jSGcYqv57T7eRIvIgnu80qs7Nw==",
+    "tarball": "https://registry.npmjs.org/fullcalendar/-/fullcalendar-5.10.2.tgz",
+    "fileCount": 87,
+    "unpackedSize": 1177521,
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.13\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJiBATbCRA9TVsSAnZWagAACDUP/1uH0es4eZOiPD0X6ep/\n/eVC4d0rwVQxQcLYZqtmGhdgLf/+udHJ4AeuQPcN7QL6Qsq/TAbdMdvmJDz1\nhrXcg2+mGMppQWtnu52jDCDsWy7zN/9qn5zYUEYC+eORIFTSoTZYUSUpz7p0\ncF84HdVoi4+GI64bhh0DVdWKOGNIohZACfrZErc+TFCcZZwVKq/r5Lha8kqI\npF0LtHrDKxJjIPlBSId3DyE4jXVQrujX5aBlY0c6mZDXMmT36t+NwJA6R8eG\na4lyW/2Rz1RcYPjp4rQWDRscvplOI07vJSoP9KK0VDSGG8+1R71KHuo+a8Su\n6D8FqEPOIpdFeJwPkA+1frFwBYdcQLCsCGfa4wI/b2CXTVgXlGxRAaId9tiG\nVgRlYsHn39O3IGNPXDPtuFNceYgb03SR2C3kklIO32FR1HEkv0hO1zxw5Jrg\ncmf20JpoiT0Em5Dn0lmQgwIVigJ50ddZF00DKc/nRI5kvNCBNkX64ImoxQ1b\nQE4qiMfAap8QbPivIff3UoHeH78TG/KYJUPQyj0cCoR0Zy274yEKOQjnqWj8\n+0triypgzb6KJw4lDgTYBekLFY2d2a2nXk451Iri5ECxLGWnZoTKM9kC+hb6\nLGx7DNHOJe7NWrqFVdaUPI5VST+T5ZFstJObT5lBULAhtMAQmodCo6h8yw7w\nOdn+\r\n=cfzG\r\n-----END PGP SIGNATURE-----\r\n"
+  },
+  "docs": "https://fullcalendar.io/docs/initialize-globals",
+  "homepage": "https://fullcalendar.io/",
+  "jsdelivr": "main.min.js",
+  "license": "MIT",
+  "main": "main.js",
+  "maintainers": [
+    {
+      "name": "arshaw",
+      "email": "arshaw@arshaw.com"
+    }
+  ],
+  "name": "fullcalendar",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fullcalendar/fullcalendar.git",
+    "homepage": "https://github.com/fullcalendar/fullcalendar"
+  },
+  "title": "FullCalendar Standard Bundle",
+  "version": "5.10.2"
+}

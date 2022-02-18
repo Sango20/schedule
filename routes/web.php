@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', 'ScheduleController@index');
+Route::get('/home/calendar','ScheduleController@calendar');
