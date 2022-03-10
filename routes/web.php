@@ -13,3 +13,7 @@
 
 Route::get('/home', 'ScheduleController@index');
 Route::get('/home/calendar','ScheduleController@calendar');
+Route::get('/home/make','ScheduleController@make');
+Route::get('/home/configuration','ScheduleController@configuration');
+Route::post('/home','ScheduleController@store');
+Route::post('/test', 'ScheduleController@graph');

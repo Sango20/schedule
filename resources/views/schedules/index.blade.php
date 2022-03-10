@@ -16,6 +16,10 @@
         </div>
         <h2 class='title'>
             <a href="/home/calendar">カレンダー</a>
+             <a href="/home/make">スケジュール作成</a>
+             <a href="/home/configuration">設定</a>
+             <div></div>
+             <a href="/test">スケジュール</a>
         </h2>
     </body>
 </html>
