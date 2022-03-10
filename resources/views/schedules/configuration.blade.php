@@ -30,6 +30,7 @@
         <input type="submit" value="保存"/>
         </form>
         <input type="button" name="a" value="追加" onclick="add()">
+        <div class='back'><a href="/home">前へ</a></div>
         <script>
         var test=document.getElementById("form_area");
         console.log(test);

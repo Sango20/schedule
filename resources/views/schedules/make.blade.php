@@ -23,6 +23,7 @@
         </table>
         <input type="button" name="a" value="追加" onclick="add()">
         <input type="submit" value="作成"/>
+        <div class='back'><a href="/home">前へ</a></div>
         </form>
         </body>
 </html>

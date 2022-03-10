@@ -17,9 +17,13 @@
     </table>
 </div>
     <canvas id="canvas"></canvas>
+    <canvas id="canvas2"></canvas>
+    <div class='back'><a href = "/home/make">back</a></div>
 <script>
 var canvas = document.getElementById('canvas');
+var canvas2 = document.getElementById('canvas2');
 var c = canvas.getContext('2d');
+var d = canvas2.getContext('2d');
 
 var radianStart1 = 270 * Math.PI / 180;
 var radianStart2 = 50 * Math.PI / 180;
@@ -31,8 +35,12 @@ c.beginPath();
 c.moveTo(200, 75);
 c.lineTo(200, 25);
 c.arc(200, 75, 50, radianStart1, radianEnd, false);
-c.closePath();
 c.fill();
+
+d.beginPath();
+d.arc(400, 100, 40, 0, Math.PI, false);
+d.stroke();
+
 
 
     var table1 = document.createElement("p");
@@ -89,13 +97,21 @@ console.log(set4);
 let config1 = {
     type: "pie",
     data: {
-        labels: [set1, set3, "sample1", "sample2"],
+        labels: [set1, set3, "sample1", "sample2","sample3","sample4","sample5","sample6","sample7","sample8","sample9","sample10"],
         datasets: [{
-            data: [set2, set4, 1, 1.5],
+            data: [set2, set4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
             backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(255, 159, 64)",
-                "rgb(240, 240, 240)",
+                "white",
+                "red",
+                "green",
+                "black",
+                "yellow",
+                "blue",
+                "pink",
+                "orange",
+                "violet",
+                "silver",
+                "brown",
                 "rgb(54, 162, 235)"
             ]
         }],
