@@ -36,13 +36,13 @@ class ScheduleController extends Controller
         $times = (array)$request->times;
         $contents = (array)$request->contents;
         foreach ($titles as $title)
-        {
+        { 
             $input = new Routine_Schedule;
             $input -> user_id = 0;
             $input -> date = now();
             $input -> title = $title;
             foreach($start_times as $start_time)
-            {
+            { 
                 $input -> start_time = $start_time;
                 foreach($times as $time)
                 {
@@ -53,8 +53,8 @@ class ScheduleController extends Controller
                     }
                 }
             }
-            $input -> save();
         }
+        $input -> save();      
         return redirect('home');
     }
 
