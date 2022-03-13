@@ -60,16 +60,6 @@ class ScheduleController extends Controller
 
     public function graph(Request $request, Schedule $schedule, Routine_Schedule $routine_schedule)
     {
-        /*
-        $input = new Schedule;
-        $input -> id = 0;
-        $input -> user_id = 0;
-        $input -> date = now();
-        $input -> title = $request->title_0;
-        $input -> time = $request->time_0;
-        $input -> contents = $request->content_0;
-        $input -> save();
-        */
         $titles = (array)$request->title;
         $times = (array)$request->times;
         $contents = (array)$request->contents;
@@ -88,7 +78,7 @@ class ScheduleController extends Controller
                 }
             }
         }
-            //$input -> save();
+            $input -> save();
         return view('schedules/chartjs')->with(['routine_schedules' => $routine_schedule->get(),'schedules' =>$schedule->get()]);
     }
 }
