@@ -16,7 +16,25 @@
                                 <th>予定時刻</th>
                                 <th>実行時間</th>
                                 <th>内容</th>
-                @foreach ($routine_schedules as $routine_schedule)
+                <tr>
+                        <td><input type="text" id="text[]" name="title[]" value=""></td>
+                        <td><input type="text" id="number[]" name="start_times[]" value=""></td>
+                        <td><input type="text" id="number[]" name="times[]" value=""></td>
+                        <td><input type="text" id="number[]" name="contents[]" value=""></td>
+                        <td><input type="button" id="number[]" name="remove_0" onclick="remove(this)" value="削除"></td>
+                </tr>
+        </table> 
+       <input type="button" name="a" value="追加" onclick="add()">
+        
+        
+        <h2>設定した予定</h2>
+        <table id="form_area2">
+                
+                                <th>タイトル</th>
+                                <th>予定時刻</th>
+                                <th>実行時間</th>
+                                <th>内容</th>
+        @foreach ($routine_schedules as $routine_schedule)
                 <tr>
                         <td><input type="text" id="text[]" name="title[]" value="{{$routine_schedule->title}}"></td>
                         <td><input type="text" id="number[]" name="start_times[]" value="{{$routine_schedule->start_time}}"></td>
@@ -25,11 +43,11 @@
                         <td><input type="button" id="number[]" name="remove_0" onclick="remove(this)" value="削除"></td>
                 </tr>
                 @endforeach
-        </table> 
-       
+        </table>
         <input type="submit" value="保存"/>
         </form>
-        <input type="button" name="a" value="追加" onclick="add()">
+        
+        
         <script>
         var test=document.getElementById("form_area");
         console.log(test);

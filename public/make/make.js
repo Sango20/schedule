@@ -8,19 +8,19 @@ function add(){
        
         var a = document.createElement("input");
         a.type = 'text';
-        a.name = 'title_' + i;
+        a.name = 'title[]';
         table1.appendChild(a);
         table.appendChild(table1);
 
         var b = document.createElement("input");
         b.type = 'text';
-        b.name = 'time_' + i;
+        b.name = 'time[]';
         table2.appendChild(b);
         table.appendChild(table2);
         
         var c = document.createElement("input");
         c.type = 'text';
-        c.name = 'content_' + i;
+        c.name = 'content[]';
         table3.appendChild(c);
         table.appendChild(table3);
 
