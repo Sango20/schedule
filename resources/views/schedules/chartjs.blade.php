@@ -1,39 +1,34 @@
 <html>
 
 <head>
+<link href='chart.js/dist/chartjs.css' rel='stylesheet' />
 <script src="chart.js/dist/chart.min.js"></script>
+<script src="chart.js/dist/chartjs-plugin-datalabels.js"></script> 
 </head>
 
 <body>
 
 <div>
+     
     <h2>入力した内容</h2>
     <p id="form_area">
-    </p>
-    <table>
-    <td><canvas id="myChart" style="border: solid 1px; width: 500px; height: 500px"></canvas></td>
-    <td><canvas id="myChart2" style="border: solid 1px; width: 500px; height: 500px"></canvas></td>
-    <td><canvas id="myChart3" style="border: solid 1px; width: 500px; height: 500px"></canvas></td>
+        <table>
+    <td id="samplebox">
+    <canvas id="myChart" style="width: 400px; height: 400px"></canvas>
+    </td>
+    <td class="samplebox">
+    <canvas id="myChart2" style="border: solid 1px; width: 500px; height: 500px"></canvas>
+    </td>
+    <td style="transform: rotate( -45deg )">
+    <canvas id="myChart3" style="border: solid 1px; width: 500px; height: 500px"></canvas>
+    </td>
     </table>
+    </p>
+    
+    
 </div>
-    <canvas id="canvas"></canvas>
+   
 <script>
-var canvas = document.getElementById('canvas');
-var c = canvas.getContext('2d');
-
-var radianStart1 = 270 * Math.PI / 180;
-var radianStart2 = 50 * Math.PI / 180;
-var radianEnd = 50 * Math.PI / 180;
-var radianEnd2 = 270 * Math.PI / 180;;
-
-c.fillStyle = 'green'; 
-c.beginPath();
-c.moveTo(200, 75);
-c.lineTo(200, 25);
-c.arc(200, 75, 50, radianStart1, radianEnd, false);
-c.closePath();
-c.fill();
-
 
     var table1 = document.createElement("p");
     var number1 = 0;
@@ -44,6 +39,7 @@ c.fill();
         make.type = 'text';
         make.id = "routine_schedule_" + number1;
         make.name = "{{$routine_schedule->title}}";
+        make.title = "{{$routine_schedule->start_time}}";
         make.value = "{{$routine_schedule->time}}";
         table1.appendChild(make);
         number1++;
@@ -89,7 +85,6 @@ console.log(set4);
 let config1 = {
     type: "pie",
     data: {
-        labels: [set1, set3, "sample1", "sample2"],
         datasets: [{
             data: [set2, set4, 1, 1.5],
             backgroundColor: [
@@ -109,6 +104,7 @@ let set6 = document.getElementById("schedule_2").value / 60;
 let set7 = document.getElementById("schedule_3").name;
 let set8 = document.getElementById("schedule_3").value / 60;
 console.log(set6);
+
 let config2 = {
     type: "pie",
     data: {
@@ -145,8 +141,22 @@ let config3 = {
         responsive: false,
     }
 };
-// チャートの生成
+
+document.getElementById("myChart3").style.borderColor = "red";
+var chenge = document.getElementById("routine_schedule_0").title;
+console.log(chenge);
+var chenge1 = parseFloat(chenge);
+console.log(chenge1);
+var chenge2 = chenge1 * 7.5;
+console.log(chenge2);
+var chenge3 = chenge2;
+console.log(chenge3);
+let ctx = document.getElementById("myChart");
+ctx.style.transform = "rotate("+chenge3+"deg)";
+console.log(ctx.style.transform);
+
 window.addEventListener("load", function() {
+
     let ctx1 = document.getElementById("myChart").getContext("2d");
     myChart = new Chart(ctx1, config1);
     let ctx2 = document.getElementById("myChart2").getContext("2d");
@@ -154,6 +164,8 @@ window.addEventListener("load", function() {
     let ctx3 = document.getElementById("myChart3").getContext("2d");
     myChart3 = new Chart(ctx3, config3);
 }, false);
+
+
 </script>
 </body>
 </html>
