@@ -7,24 +7,28 @@ function add(){
         var table4 = document.createElement("td");
        
         var a = document.createElement("input");
+        a.classList.add('b');
         a.type = 'text';
         a.name = 'title[]';
         table1.appendChild(a);
         table.appendChild(table1);
 
         var b = document.createElement("input");
-        b.type = 'text';
+        b.classList.add('b');
         b.name = 'time[]';
+        b.class = "b";
         table2.appendChild(b);
         table.appendChild(table2);
         
         var c = document.createElement("input");
+        c.classList.add('c');
         c.type = 'text';
         c.name = 'content[]';
         table3.appendChild(c);
         table.appendChild(table3);
 
         var d = document.createElement("input");
+        d.classList.add('a');
         d.type = 'button';
         d.value = '削除';
         d.name = 'remove_' + i;

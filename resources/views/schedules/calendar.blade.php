@@ -17,6 +17,9 @@
     </script>
   </head>
   <body>
-    <div id='calendar'></div>
+    <h1>日付を選択してください</h1>
+    <p>
+    <div id='calendar'style=" width: 1500px; height: 1500px"></div>
+    </p>
   </body>
 </html>

@@ -1,24 +1,24 @@
-.a{
+h1{
+    	position:relative;
+			top: 150px;
+    text-align: center;
+}
+a{
     display: inline-block;
-  padding: 10px 10px;
+  padding: 5em 5em;
   text-decoration: none;
   background: #668ad8;/*ボタン色*/
   color: #FFF;
+  	position:relative;
+			top: 250px;
+			left:200px;
   border-bottom: solid 10px #627295;
   border-radius: 3px;
 }
 
-.b{
-    display: block;
-  padding: 10px 10px;
-  border-radius: 3px;
-}
-
-.c{
-    display: block;
-  padding: 10px 150px;
-  border-radius: 3px;
-}
+/*=============
+.bg_pattern
+==============*/
 
 .bg_pattern {
   position: fixed;

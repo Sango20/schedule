@@ -1,5 +1,5 @@
 /*!
- * chartjs-plugin-datalabels v0.7.0
+ * chartjs-plugin-datalabels v0.6.0
  * https://chartjs-plugin-datalabels.netlify.com
  * (c) 2019 Chart.js Contributors
  * Released under the MIT license
@@ -702,8 +702,8 @@ helpers$1.extend(Label.prototype, {
 
 var helpers$2 = Chart.helpers;
 
-var MIN_INTEGER = Number.MIN_SAFE_INTEGER || -9007199254740991; // eslint-disable-line es/no-number-minsafeinteger
-var MAX_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;  // eslint-disable-line es/no-number-maxsafeinteger
+var MIN_INTEGER = Number.MIN_SAFE_INTEGER || -9007199254740991;
+var MAX_INTEGER = Number.MAX_SAFE_INTEGER || 9007199254740991;
 
 function rotated(point, center, angle) {
 	var cos = Math.cos(angle);
@@ -955,7 +955,7 @@ var layout = {
 			var sb = b.$layout;
 
 			return sa._idx === sb._idx
-				? sb._set - sa._set
+				? sa._set - sb._set
 				: sb._idx - sa._idx;
 		});
 
@@ -992,7 +992,10 @@ var layout = {
 			state = labels[i].$layout;
 
 			if (state && state._visible && state._box.contains(point)) {
-				return labels[i];
+				return {
+					dataset: state._set,
+					label: labels[i]
+				};
 			}
 		}
 
@@ -1066,7 +1069,6 @@ var defaults = {
 		weight: null
 	},
 	formatter: formatter,
-	labels: undefined,
 	listeners: {},
 	offset: 4,
 	opacity: 1,
@@ -1090,13 +1092,10 @@ var defaults = {
 
 var helpers$4 = Chart.helpers;
 var EXPANDO_KEY = '$datalabels';
-var DEFAULT_KEY = '$default';
 
 function configure(dataset, options) {
 	var override = dataset.datalabels;
-	var listeners = {};
-	var configs = [];
-	var labels, keys;
+	var config = {};
 
 	if (override === false) {
 		return null;
@@ -1105,60 +1104,17 @@ function configure(dataset, options) {
 		override = {};
 	}
 
-	options = helpers$4.merge({}, [options, override]);
-	labels = options.labels || {};
-	keys = Object.keys(labels);
-	delete options.labels;
-
-	if (keys.length) {
-		keys.forEach(function(key) {
-			if (labels[key]) {
-				configs.push(helpers$4.merge({}, [
-					options,
-					labels[key],
-					{_key: key}
-				]));
-			}
-		});
-	} else {
-		// Default label if no "named" label defined.
-		configs.push(options);
-	}
-
-	// listeners: {<event-type>: {<label-key>: <fn>}}
-	listeners = configs.reduce(function(target, config) {
-		helpers$4.each(config.listeners || {}, function(fn, event) {
-			target[event] = target[event] || {};
-			target[event][config._key || DEFAULT_KEY] = fn;
-		});
-
-		delete config.listeners;
-		return target;
-	}, {});
-
-	return {
-		labels: configs,
-		listeners: listeners
-	};
+	return helpers$4.merge(config, [options, override]);
 }
 
-function dispatchEvent(chart, listeners, label) {
-	if (!listeners) {
-		return;
-	}
-
-	var context = label.$context;
-	var groups = label.$groups;
-	var callback;
-
-	if (!listeners[groups._set]) {
-		return;
-	}
-
-	callback = listeners[groups._set][groups._key];
+function dispatchEvent(chart, listeners, target) {
+	var callback = listeners && listeners[target.dataset];
 	if (!callback) {
 		return;
 	}
+
+	var label = target.label;
+	var context = label.$context;
 
 	if (helpers$4.callback(callback, [context]) === true) {
 		// Users are allowed to tweak the given context by injecting values that can be
@@ -1170,18 +1126,18 @@ function dispatchEvent(chart, listeners, label) {
 	}
 }
 
-function dispatchMoveEvents(chart, listeners, previous, label) {
+function dispatchMoveEvents(chart, listeners, previous, target) {
 	var enter, leave;
 
-	if (!previous && !label) {
+	if (!previous && !target) {
 		return;
 	}
 
 	if (!previous) {
 		enter = true;
-	} else if (!label) {
+	} else if (!target) {
 		leave = true;
-	} else if (previous !== label) {
+	} else if (previous.label !== target.label) {
 		leave = enter = true;
 	}
 
@@ -1189,36 +1145,36 @@ function dispatchMoveEvents(chart, listeners, previous, label) {
 		dispatchEvent(chart, listeners.leave, previous);
 	}
 	if (enter) {
-		dispatchEvent(chart, listeners.enter, label);
+		dispatchEvent(chart, listeners.enter, target);
 	}
 }
 
 function handleMoveEvents(chart, event) {
 	var expando = chart[EXPANDO_KEY];
 	var listeners = expando._listeners;
-	var previous, label;
+	var previous, target;
 
 	if (!listeners.enter && !listeners.leave) {
 		return;
 	}
 
 	if (event.type === 'mousemove') {
-		label = layout.lookup(expando._labels, event);
+		target = layout.lookup(expando._labels, event);
 	} else if (event.type !== 'mouseout') {
 		return;
 	}
 
 	previous = expando._hovered;
-	expando._hovered = label;
-	dispatchMoveEvents(chart, listeners, previous, label);
+	expando._hovered = target;
+	dispatchMoveEvents(chart, listeners, previous, target);
 }
 
 function handleClickEvents(chart, event) {
 	var expando = chart[EXPANDO_KEY];
 	var handlers = expando._listeners.click;
-	var label = handlers && layout.lookup(expando._labels, event);
-	if (label) {
-		dispatchEvent(chart, handlers, label);
+	var target = handlers && layout.lookup(expando._labels, event);
+	if (target) {
+		dispatchEvent(chart, handlers, target);
 	}
 }
 
@@ -1257,9 +1213,9 @@ var plugin = {
 	beforeUpdate: function(chart) {
 		var expando = chart[EXPANDO_KEY];
 		expando._listened = false;
-		expando._listeners = {};     // {<event-type>: {<dataset-index>: {<label-key>: <fn>}}}
-		expando._datasets = [];      // per dataset labels: [Label[]]
-		expando._labels = [];        // layouted labels: Label[]
+		expando._listeners = {};     // {event-type: {dataset-index: function}}
+		expando._datasets = [];      // per dataset labels: [[Label]]
+		expando._labels = [];        // layouted labels: [Label]
 	},
 
 	afterDatasetUpdate: function(chart, args, options) {
@@ -1270,48 +1226,39 @@ var plugin = {
 		var dataset = chart.data.datasets[datasetIndex];
 		var config = configure(dataset, options);
 		var elements = args.meta.data || [];
+		var ilen = elements.length;
 		var ctx = chart.ctx;
-		var i, j, ilen, jlen, cfg, key, el, label;
+		var i, el, label;
 
 		ctx.save();
 
-		for (i = 0, ilen = elements.length; i < ilen; ++i) {
+		for (i = 0; i < ilen; ++i) {
 			el = elements[i];
-			el[EXPANDO_KEY] = [];
 
 			if (visible && el && !el.hidden && !el._model.skip) {
-				for (j = 0, jlen = config.labels.length; j < jlen; ++j) {
-					cfg = config.labels[j];
-					key = cfg._key;
-
-					label = new Label(cfg, ctx, el, i);
-					label.$groups = {
-						_set: datasetIndex,
-						_key: key || DEFAULT_KEY
-					};
-					label.$context = {
-						active: false,
-						chart: chart,
-						dataIndex: i,
-						dataset: dataset,
-						datasetIndex: datasetIndex
-					};
-
-					label.update(label.$context);
-					el[EXPANDO_KEY].push(label);
-					labels.push(label);
-				}
+				labels.push(label = new Label(config, ctx, el, i));
+				label.update(label.$context = {
+					active: false,
+					chart: chart,
+					dataIndex: i,
+					dataset: dataset,
+					datasetIndex: datasetIndex
+				});
+			} else {
+				label = null;
 			}
+
+			el[EXPANDO_KEY] = label;
 		}
 
 		ctx.restore();
 
 		// Store listeners at the chart level and per event type to optimize
-		// cases where no listeners are registered for a specific event.
-		helpers$4.merge(expando._listeners, config.listeners, {
-			merger: function(event, target, source) {
-				target[event] = target[event] || {};
-				target[event][args.index] = source[event];
+		// cases where no listeners are registered for a specific event
+		helpers$4.merge(expando._listeners, config.listeners || {}, {
+			merger: function(key, target, source) {
+				target[key] = target[key] || {};
+				target[key][args.index] = source[key];
 				expando._listened = true;
 			}
 		});
@@ -1353,14 +1300,13 @@ var plugin = {
 		var previous = expando._actives;
 		var actives = expando._actives = chart.lastActive || [];  // public API?!
 		var updates = utils.arrayDiff(previous, actives);
-		var i, ilen, j, jlen, update, label, labels;
+		var i, ilen, update, label;
 
 		for (i = 0, ilen = updates.length; i < ilen; ++i) {
 			update = updates[i];
 			if (update[1]) {
-				labels = update[0][EXPANDO_KEY] || [];
-				for (j = 0, jlen = labels.length; j < jlen; ++j) {
-					label = labels[j];
+				label = update[0][EXPANDO_KEY];
+				if (label) {
 					label.$context.active = (update[1] === 1);
 					label.update(label.$context);
 				}

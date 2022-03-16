@@ -126,7 +126,7 @@ class ScheduleController extends Controller
                     $number2++;
                 }
             }
-             $input -> save();
+             //$input -> save();
         }
         return view('schedules/chartjs')->with(['routine_schedules' => $routine_schedule->get(),'schedules' =>$schedule->get()]);
     }
