@@ -1,3 +1,5 @@
+@extends('layouts.app')
+@section('content')
 <!DOCTYPE html>
 
 <html lang = "ja">
@@ -24,7 +26,7 @@
         @foreach ($routine_schedules as $routine_schedule)
                 <tr>
                         <td><input class="b"  type="text" id="text[]" name="title[]" value="{{$routine_schedule->title}}"></td>
-                        <td><input class="b"  type="text" id="number[]" name="start_times[]" value="{{$routine_schedule->start_time}}"></td>
+                        <td><input class="b"  type="time" id="number[]" name="start_times[]" value="{{$routine_schedule->start_time}}"></td>
                         <td><input class="b"  type="text" id="number[]" name="times[]" value="{{$routine_schedule->time}}"></td>
                         <td><input class="c"  type="text" id="number[]" name="contents[]" value="{{$routine_schedule->contents}}"></td>
                         <td><input class="a"  type="button" id="number[]" name="remove_0" onclick="remove(this)" value="削除"></td>
@@ -42,3 +44,4 @@
         </script>
         </body>
 </html>
+@endsection

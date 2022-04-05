@@ -31,19 +31,14 @@
     </td>
     </table>
     <p id="form_area"></p>
-    <table id="form_area2">
-        
-        
-                                <th>タイトル</th>
-                                <th>予定時刻</th>
-                                <th>実行時間（分）</th>
-                                <th>内容</th>
-                <tr>
-                </tr>
-        </table>
-     <input class="a" type="button" onclick="location.href='/update'" value="更新">
-     <input class="a" type="button" onclick="location.href='/schedule/{date}'" value="保存">
+    <input class="a" type="button" value="更新" id="btnReload">
 <script>
+
+
+let btnReload = document.getElementById('btnReload');
+btnReload.addEventListener('click', function(){
+   location.reload();
+});
     var table1 = document.createElement("p");
     var number1 = 0;
     var count = [];
@@ -250,64 +245,7 @@ window.addEventListener("load", function() {
     let ctx1 = document.getElementById("myChart").getContext("2d");
     myChart = new Chart(ctx1, config1);
 }, false);
-var i=1;
-for(i=1;i<k;i++)
-{
-        var table = document.createElement("tr");
-        var table1 = document.createElement("td");
-        var table2 = document.createElement("td");
-        var table3 = document.createElement("td");
-        var table4 = document.createElement("td");
-        var table5 = document.createElement("td");
-       
-        var a = document.createElement("input");
-        a.classList.add('b');
-        a.type = 'text';
-        a.id = "text[]";
-        a.name = 'title[]';
-        a.value= set[count[i]];
-        table1.appendChild(a);
-        table.appendChild(table1);
 
-        var b = document.createElement("input");
-        b.classList.add('b');
-        b.type = 'text';
-        b.id = i;
-        b.name = 'start_times[]';
-        b.value = count[i] + ":00";
-        table2.appendChild(b);
-        table.appendChild(table2);
-        
-        var c = document.createElement("input");
-        c.classList.add('b');
-        c.type = 'text';
-        c.id = i;
-        c.name = 'times[]';
-        c.value = set2[count[i]] * 60;
-        table3.appendChild(c);
-        table.appendChild(table3);
-        
-        var d = document.createElement("input");
-        d.classList.add('c');
-        d.type = 'text';
-        d.id = i;
-        d.name = 'contents[]';
-        table4.appendChild(d);
-        table.appendChild(table4);
-        
-        var e = document.createElement("input");
-        e.classList.add('a');
-        e.type = 'button';
-        e.id = i;
-        e.value = '削除';
-        e.name = 'remove_[]';
-        e.addEventListener("click", function(){remove(this)});
-        table5.appendChild(e);
-        table.appendChild(table5);
-
-         var parent = document.getElementById('form_area2');
-        parent.appendChild(table);
-}
 </script>
 </body>
 </html>

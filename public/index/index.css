@@ -1,17 +1,17 @@
 h1{
     	position:relative;
-			top: 150px;
+			top: 100px;
     text-align: center;
 }
-a{
+.button{
     display: inline-block;
-  padding: 5em 5em;
+  padding: 150px;
   text-decoration: none;
   background: #668ad8;/*ボタン色*/
   color: #FFF;
   	position:relative;
-			top: 250px;
-			left:200px;
+			top: 200px;
+			left: 25px;
   border-bottom: solid 10px #627295;
   border-radius: 3px;
 }
@@ -42,16 +42,8 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
 body {
   font-family: YuGothic, "游ゴシック体", "Yu Gothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
-  letter-spacing: .025em;
   line-height: 1.8;
-}
-* {
-  box-sizing: border-box;
-}
-.section {
-  max-width: 1024x;
-  margin: 0 auto;
-  padding: 100px 20px 1000px;
 }

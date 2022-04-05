@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +13,10 @@
 
 Route::get('/home', 'ScheduleController@index');
 Route::get('/home/calendar','ScheduleController@calendar');
-Route::get('/home/make','ScheduleController@make');
+Route::get('/home/make/{date}','ScheduleController@make');
 Route::get('/home/configuration','ScheduleController@configuration');
 Route::post('/home','ScheduleController@store');
 Route::post('/test', 'ScheduleController@graph');
+Route::get('/update', 'ScheduleController@reload');
+Route::get('/home/view', 'ScheduleController@view');
+Auth::routes();
