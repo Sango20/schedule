@@ -1,0 +1,261 @@
+.a{
+    display: inline-block;
+  padding: 10px 10px;
+  text-decoration: none;
+  background: #668ad8;/*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 10px #627295;
+  border-radius: 3px;
+}
+
+.b{
+    display: block;
+  padding: 10px 10px;
+  border-radius: 3px;
+}
+
+.c{
+    display: block;
+  padding: 10px 150px;
+  border-radius: 3px;
+}
+
+.bg_pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffe9a7;
+  opacity: 0.4;
+  z-index: -1;
+}
+.Diagonal_v2 {
+  background: repeating-linear-gradient( -45deg, #ffc107, #ffc107 10px, #ffe9a7 10px, #ffe9a7 50px );
+}
+
+/*=============
+base
+==============*/
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: YuGothic, "游ゴシック体", "Yu Gothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+  letter-spacing: .025em;
+  line-height: 1.8;
+}
+* {
+  box-sizing: border-box;
+}
+.anaclo{
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+.anaclo-frame{
+  box-sizing: border-box;
+  position: relative;
+  width: 500px;
+  height: 500px;
+  border: 5px solid #444;
+  border-radius: 50%;
+}
+.anaclo-frame::before{
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+.anaclo-hand{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: left;
+  transform: translateY(-50%);
+  background-color: #333;
+}
+#anaclo-hour{
+  width: 25%;
+  height: 14px;
+}
+#anaclo-minute{
+  width: 40%;
+  height: 9px;
+}
+#anaclo-second{
+  left: 45%;
+  transform-origin: 10% 0;
+  width: 50%;
+  height: 1px;
+}
+.anaclo-center{
+  transform: translate(-50%,-50%);
+  width: 3%;
+  height: 3%;
+  border: 3px solid #333;
+  border-radius: 50%;
+  background-color: white;
+}
+.anaclo-num{
+  position: absolute;
+   height: 0.1em;
+  line-height: 0.1em;
+  font-size: 10vw;
+  transform: translate(-50%,-50%);
+}
+.anaclo-0{
+   top: 5%;
+  left: 50%;
+}
+.anaclo-12{
+   top: 103%;
+  left: 50%;
+}
+.anaclo-6{
+  top: 50%;
+  left: 75%;
+}
+.anaclo-1{
+  top: 100%;
+  left: 50%;
+}
+.anaclo-2{
+  top: 50%;
+  left: 103%;
+}
+.anaclo-3{
+  top: 25%;
+  left: 70%;
+}
+.anaclo-4{
+  top: 18%;
+  left: 50%;
+}
+.anaclo-5{
+  top: 84%;
+  left: 29.5%;
+}
+
+.anaclo-7{
+  top: 70%;
+  left: 15%;
+}
+.anaclo-8{
+  top: 70%;
+  left: 85%;
+}
+.anaclo-9{
+  top: 82%;
+  left: 70%;
+}
+.anaclo-10{
+  top: 84%;
+  left: 70.5%;
+}
+.anaclo-11{
+  top: 18%;
+  left: 30%;
+}
+
+.anaclo-13{
+  top: 90%;
+  left: 50%;
+}
+.anaclo-14{
+  top: 50%;
+  left: 103%;
+}
+.anaclo-15{
+  top: 82%;
+  left: 30%;
+}
+.anaclo-16{
+  top: 18%;
+  left: 70.5%;
+}
+.anaclo-17{
+  top: 84%;
+  left: 29.5%;
+}
+.anaclo-18{
+  top: 50%;
+  left: 25%;
+}
+.anaclo-19{
+  top: 70%;
+  left: 15%;
+}
+.anaclo-20{
+  top: 70%;
+  left: 85%;
+}
+.anaclo-21{
+  top: 25%;
+  left: 30%;
+}
+.anaclo-22{
+  top: 84%;
+  left: 70.5%;
+}
+.anaclo-23{
+  top: 18%;
+  left: 30%;
+}
+.anaclo-dot-outer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 6vw;
+  color: #444;
+}
+.anaclo-dot{
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+.anaclo-dot1{
+  transform: rotateZ(30deg);
+}
+.anaclo-dot2{
+  transform: rotateZ(60deg);
+}
+.anaclo-dot3{
+  transform: rotateZ(90deg);
+}
+.anaclo-dot4{
+  transform: rotateZ(120deg);
+}
+.anaclo-dot5{
+  transform: rotateZ(150deg);
+}
+.anaclo-dot6{
+  transform: rotateZ(180deg);
+}
+.anaclo-dot7{
+  transform: rotateZ(210deg);
+}
+.anaclo-dot8{
+  transform: rotateZ(240deg);
+}
+.anaclo-dot9{
+  transform: rotateZ(270deg);
+}
+.anaclo-dot10{
+  transform: rotateZ(300deg);
+}
+.anaclo-dot11{
+  transform: rotateZ(330deg);
+}
+@media screen and (min-width:100px) {
+  .anaclo-num{
+    font-size: 20px;
+  }
+  .anaclo-dot{
+    top: 3%;
+  }
+}

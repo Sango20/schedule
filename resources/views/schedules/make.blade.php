@@ -14,7 +14,7 @@
         <div class="bg_pattern Diagonal_v2"></div>
         <div class="section">   
         <h1>作成したい予定を入力してください</h1>
-        <form action="/test" method="POST">  
+        <form action="/schedule" method="POST">  
          @csrf
         <table id="form_area"　>
                                 <th>タイトル</th>

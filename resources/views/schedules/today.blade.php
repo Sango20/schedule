@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('content')
-<!DOCTYPE html>
 <html>
 
 <head>
-<link href='chart.js/dist/chartjs.css' rel='stylesheet' />
+<link href='../../../chart.js/dist/chartjs.css' rel='stylesheet' />
+<link href="today.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
 <script src="https://unpkg.com/chartjs-plugin-colorschemes"></script>
-<script src="chart.js/dist/chartjs-plugin-datalabels.js"></script>
+<script src="../../../chart.js/dist/chartjs-plugin-datalabels.js"></script>
 </head>
 
 <body>
@@ -32,8 +32,6 @@
     </td>
     </table>
     <p id="form_area"></p>
-    <form action="/view" method="POST">  
-         @csrf
     <table id="form_area2">
         
         
@@ -42,70 +40,44 @@
                                 <th>実行時間（分）</th>
                                 <th>内容</th>
                 <tr>
-                    <td><input class="b" type="hidden" name="dates" value="{{$date}}" ></td>
+                    <td><input class="b" type="hidden" name="dates"></td>
                 </tr>
         </table>
-     <input class="a" type="button" onclick="location.href='/update'" value="更新">
-     <input class="a" type="submit" value="保存"/>
-     </form>
+     <input class="a" type="button" onclick="location.href='/home'" value="戻る">
 <script>
-    var table1 = document.createElement("p");
-    var number1 = 0;
+    var table = document.createElement("p");
+    var parent = document.getElementById('form_area');
+    var number1=0;
     var count = [];
     count[0] = 0;
-    var k=1;
-    @foreach($routine_schedules as $routine_schedule)
+    var k = 1;
+    @foreach($store_schedules as $store_schedule)
     {
         var make = document.createElement("input");
         make.type = 'text';
         make.id = "set_schedule_" + number1;
-        make.name = "{{$routine_schedule->title}}";
-        make.title = "{{$routine_schedule->start_time}}";
-        make.value = "{{$routine_schedule->time}}";
-        table1.appendChild(make);
-        console.log(number1);
+        make.name = "{{$store_schedule->title}}";
+        make.title = "{{$store_schedule->start_time}}";
+        make.value = "{{$store_schedule->time}}";
+        table.appendChild(make);
+        number1++;
+        parent.appendChild(table);
         console.log(make);
-        number1++;
-        
     }
     @endforeach
-    console.log(number1);
-    var table2 = document.createElement("p");
-    @foreach($schedules as $schedule)
-    {
-        
-        var a = document.createElement("input");
-        a.type = 'text';
-        a.id = "set_schedule_" + number1;
-        a.name = "{{$schedule->title}}";
-        a.title = "0";
-        a.value = "{{$schedule->time}}";
-        table2.appendChild(a); 
-        console.log(number1);
-        console.log(a);
-        number1++;
-    }
-    @endforeach
-    if (number1<=23)
-    {
             var c = document.createElement("input");
             c.type = 'text';
             c.id = "no_schedule_0";
             c.name = "";
             c.title = "0";
             c.value = "0";
-            table2.appendChild(c);
+            table.appendChild(c);
+            parent.appendChild(table);
             console.log(c);
-    }
-    var parent = document.getElementById('form_area');
-    parent.appendChild(table1);
-    parent.appendChild(table2);
-var set =[]; 
+    var set =[]; 
 var set2 =[];
 set2[0]=0;
-var j=0;
-var num3 = number1 - 1;
-for(j=0;j<number1;j++)
+    for(j=0;j<number1;j++)
 {
     var www = document.getElementById("set_schedule_" + j).title;
     if(www!=0)
@@ -163,45 +135,11 @@ for(j=0;j<number1;j++)
         break;
     }
 }
-var num4 = num3 - j; 
-console.log(num4);
-var num5;
-for(let test=j;test<number1;test++)
-  {
-      test10 = document.getElementById("set_schedule_"+ test).value % 60;
-    if(test10 == 0)
-    {
-      do{
-          var random = Math.floor( Math.random() * 23 ) + 1;
-      }while(set[random]!=num5)
-      {
-      set[random]=document.getElementById("set_schedule_"+ test).name;
-      set2[random]=document.getElementById("set_schedule_"+ test).value / 60;
-      console.log(set[random]);
-      console.log(test10);
-        count[k] = random;
-       
-        k++;
-      }
-    }else{
-        do{
-          var random = Math.floor( Math.random() * 23 ) + 1;
-          var ceo=document.getElementById("set_schedule_"+ test).name;
-          console.log(ceo);
-          console.log(random);
-      }while(set[random]!=num5||set[random+1]!=num5)
-      {
-      set[random]=document.getElementById("set_schedule_"+ test).name;
-      set2[random]=document.getElementById("set_schedule_"+ test).value / 60;
-        count[k] = random;
-        console.log(count);
-      }
-    }
-  }
-  count[k+1]=24;
+count[k+1]=24;
   count.sort(function(a, b){return a - b});
          var kkk=0;
          console.log(count);
+         var num5;
 for(i=0;i<=23;i++)
 {
     while(set2[i]!=num5)
@@ -255,65 +193,6 @@ window.addEventListener("load", function() {
     let ctx1 = document.getElementById("myChart").getContext("2d");
     myChart = new Chart(ctx1, config1);
 }, false);
-var i=1;
-for(i=1;i<k;i++)
-{
-        var table = document.createElement("tr");
-        var table1 = document.createElement("td");
-        var table2 = document.createElement("td");
-        var table3 = document.createElement("td");
-        var table4 = document.createElement("td");
-        var table5 = document.createElement("td");
-       
-        var a = document.createElement("input");
-        a.classList.add('b');
-        a.type = 'text';
-        a.id = "text[]";
-        a.name = 'title[]';
-        a.value= set[count[i]];
-        table1.appendChild(a);
-        table.appendChild(table1);
-
-        var b = document.createElement("input");
-        b.classList.add('b');
-        b.type = 'text';
-        b.id = i;
-        b.name = 'start_times[]';
-        b.value = count[i] + ":00";
-        table2.appendChild(b);
-        table.appendChild(table2);
-        
-        var c = document.createElement("input");
-        c.classList.add('b');
-        c.type = 'text';
-        c.id = i;
-        c.name = 'times[]';
-        c.value = set2[count[i]] * 60;
-        table3.appendChild(c);
-        table.appendChild(table3);
-        
-        var d = document.createElement("input");
-        d.classList.add('c');
-        d.type = 'text';
-        d.id = i;
-        d.name = 'contents[]';
-        d.value = "a";
-        table4.appendChild(d);
-        table.appendChild(table4);
-        
-        var e = document.createElement("input");
-        e.classList.add('a');
-        e.type = 'button';
-        e.id = i;
-        e.value = '削除';
-        e.name = 'remove_[]';
-        e.addEventListener("click", function(){remove(this)});
-        table5.appendChild(e);
-        table.appendChild(table5);
-
-         var parent = document.getElementById('form_area2');
-        parent.appendChild(table);
-}
 </script>
 </body>
 </html>

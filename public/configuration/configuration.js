@@ -17,7 +17,7 @@ function add(){
 
         var b = document.createElement("input");
         b.classList.add('b');
-        b.type = 'text';
+        b.type = 'time';
         b.id = i;
         b.name = 'start_times[]';
         table2.appendChild(b);

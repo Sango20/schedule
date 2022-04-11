@@ -14,7 +14,7 @@
           initialView: 'dayGridMonth',
           selectable: true,
           select: function (info) {
-          location.replace("make/"+info.startStr);
+          location.replace("view/log/"+info.startStr);
           },
         });
         calendar.render();

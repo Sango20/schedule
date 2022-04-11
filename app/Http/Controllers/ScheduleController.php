@@ -5,13 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Schedule;
 use App\Routine_Schedule;
+use App\Store_Schedule;
 use Carbon\Carbon;
 
 class ScheduleController extends Controller
 {
     public function index(Schedule $schedules)
     {
-        return view('schedules/index');
+        $announce = "";
+        $announces = ['announce' => $announce];
+        return view('schedules/index',$announces);
     }
     
     public function calendar()
@@ -28,7 +31,9 @@ class ScheduleController extends Controller
     public function configuration(Routine_Schedule $routine_schedule)
     {
         $number = auth()->user()->id;
-        return view('schedules/configuration')->with(['routine_schedules' => $routine_schedule->where([["user_id",'=', $number]])->get()]);
+        $items = \APP\Routine_Schedule::select('updated_at')->orderBy('updated_at', 'desc')->where([["user_id",'=', $number]])->get();
+        $dd=$items[0]->updated_at;
+        return view('schedules/configuration')->with(['routine_schedules' => $routine_schedule->where([["user_id",'=', $number],['updated_at','=',$dd]])->get()]);
     }
 
     public function store(Request $request,Routine_Schedule $routine_schedule)
@@ -109,6 +114,7 @@ class ScheduleController extends Controller
        $number = auth()->user()->id;
         $value = 1;
         $date = $request->dates;
+        $data = ['date' => $date];
         $titles = (array)$request->title;
         $times = (array)$request->times;
         $contents = (array)$request->contents;
@@ -149,7 +155,7 @@ class ScheduleController extends Controller
         }
         $items = \APP\Schedule::select('created_at')->orderBy('id', 'desc')->where([["user_id",'=', $number]])->get();
         $dd=$items[0]->created_at;
-        return view('schedules/chartjs')->with(['routine_schedules' => $routine_schedule->where('user_id', '=', $number)->get(),'schedules' =>$schedule->where([['user_id', '=', $number],['created_at','=',$dd]])->get()]);
+        return view('schedules/chartjs',$data)->with(['routine_schedules' => $routine_schedule->where('user_id', '=', $number)->get(),'schedules' =>$schedule->where([['user_id', '=', $number],['created_at','=',$dd]])->get()]);
     }
     
     public function reload(Request $request, Schedule $schedule, Routine_Schedule $routine_schedule)
@@ -160,8 +166,95 @@ class ScheduleController extends Controller
         return view('schedules/update')->with(['routine_schedules' => $routine_schedule->where('user_id', '=', $number)->get(),'schedules' =>$schedule->where([['user_id', '=', $number],['created_at','=',$dd]])->get()]);
     }
     
+    public function set(Request $request,Store_Schedule $store_schdule)
+    {
+       $number = auth()->user()->id;
+        $value = 1;
+        $date = $request->dates;
+        $data = ['date' => $date];
+        $titles = (array)$request->title;
+        $start_times = (array)$request->start_times;
+        $times = (array)$request->times;
+        $contents = (array)$request->contents;
+        foreach ($titles as $title)
+        {
+             $number1 = 1;
+             $number2 = 1;
+             $number3 = 1;
+            $input = new store_schedule;
+            $input -> user_id = auth()->user()->id;
+            $input -> date = $date;
+            $input -> title = $title;
+            foreach($start_times as $start_time)
+            { 
+               if ($number1==$value)
+               { 
+                $input -> start_time = $start_time;
+                break;
+               }
+               else
+               {
+                   $number1++;
+               }
+            }
+            foreach($times as $time)
+            {
+                $input -> time = $time;
+               if ($number2==$value)
+               { 
+                   break;
+                }
+                else
+                {
+                $number2++; 
+                }
+            }
+            foreach($contents as $content)
+            {
+              $input -> contents = $content;
+                if ($number3==$value)
+                { 
+                $value++;
+                break;
+                }
+                else
+                {
+                    $number3++;
+                }
+            } 
+            $input -> save();
+        }
+        $items = \APP\Store_Schedule::select('created_at')->orderBy('id', 'desc')->where([["user_id",'=', $number]])->get();
+        $dd=$items[0]->created_at;
+        return view("schedules/schedule",$data)->with(['store_schedules' => $store_schdule->where([["user_id",'=', $number],["date",'=',$date],['created_at','=',$dd]])->get()]);
+    }
+    
     public function view()
     {
         return view('schedules/view');
+    }
+    
+    public function log($date,Store_Schedule $store_schdule)
+    {
+        $number = auth()->user()->id;
+         $data = ['date' => $date];
+        return view("schedules/log",$data)->with(['store_schedules' => $store_schdule->where([["user_id",'=', $number],["date",'=',$date]])->get()]);
+    }
+    
+    public function today(Store_Schedule $store_schedule)
+    {
+        $number = auth()->user()->id;
+        $date = now();
+        $set = Store_Schedule::where([["user_id",'=', $number],["date",'=',$date]])->get();
+        $set2 = Store_Schedule::where([["user_id",'=', $number],["date",'=',"2001-4-20"]])->get();
+        if($set=$set2)
+        {
+        $announce = "スケジュールが登録されていません";
+        $announces = ['announce' => $announce];
+        return view("schedules/index2",$announces);
+        }else
+        {
+        return view("schedules/today")->with(['store_schedules' => $store_schdule->where([["user_id",'=', $number],["date",'=',$date]])->get()]);
+        }
     }
 }
