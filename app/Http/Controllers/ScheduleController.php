@@ -7,14 +7,25 @@ use App\Schedule;
 use App\Routine_Schedule;
 use App\Store_Schedule;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+
 
 class ScheduleController extends Controller
 {
     public function index(Schedule $schedules)
     {
-        $announce = "";
-        $announces = ['announce' => $announce];
-        return view('schedules/index',$announces);
+        if (Auth::check()) 
+        {
+            $announce = "";
+            $announces = ['announce' => $announce];
+            return view('schedules/index',$announces);
+        } 
+        else 
+        {
+            // ログインしていなかったら、Login画面を表示
+            return view('auth/login');
+        }
+        
     }
     
     public function calendar()
