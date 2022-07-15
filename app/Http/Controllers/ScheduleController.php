@@ -256,9 +256,10 @@ class ScheduleController extends Controller
     {
         $number = auth()->user()->id;
         $date = now();
+        dd($date);
         $set = Store_Schedule::where([["user_id",'=', $number],["date",'=',$date]])->get();
         $set2 = Store_Schedule::where([["user_id",'=', $number],["date",'=',"2001-4-20"]])->get();
-        if($set=$set2)
+        if($set==$set2)
         {
         $announce = "スケジュールが登録されていません";
         $announces = ['announce' => $announce];
