@@ -7,46 +7,46 @@ function add(){
         var table4 = document.createElement("td");
         var table5 = document.createElement("td");
        
-        var a = document.createElement("input");
-        a.classList.add('b');
-        a.type = 'text';
-        a.id = "text[]";
-        a.name = 'title[]';
-        table1.appendChild(a);
+        var add_text = document.createElement("input");
+        add_text.classList.add('box');
+        add_text.type = 'text';
+        add_text.id = "text[]";
+        add_text.name = 'title[]';
+        table1.appendChild(add_text);
         table.appendChild(table1);
 
-        var b = document.createElement("input");
-        b.classList.add('b');
-        b.type = 'time';
-        b.id = i;
-        b.name = 'start_times[]';
-        table2.appendChild(b);
+        var add_time = document.createElement("input");
+        add_time.classList.add('box');
+        add_time.type = 'time';
+        add_time.id = i;
+        add_time.name = 'start_times[]';
+        table2.appendChild(add_time);
         table.appendChild(table2);
         
-        var c = document.createElement("input");
-        c.classList.add('b');
-        c.type = 'text';
-        c.id = i;
-        c.name = 'times[]';
-        table3.appendChild(c);
+        var add_minutes = document.createElement("input");
+        add_minutes.classList.add('box');
+        add_minutes.type = 'text';
+        add_minutes.id = i;
+        add_minutes.name = 'times[]';
+        table3.appendChild(add_minutes);
         table.appendChild(table3);
         
-        var d = document.createElement("input");
-        d.classList.add('c');
-        d.type = 'text';
-        d.id = i;
-        d.name = 'contents[]';
-        table4.appendChild(d);
+        var add_contents = document.createElement("input");
+        add_contents.classList.add('inline_box');
+        add_contents.type = 'text';
+        add_contents.id = i;
+        add_contents.name = 'contents[]';
+        table4.appendChild(add_contents);
         table.appendChild(table4);
         
-        var e = document.createElement("input");
-        e.classList.add('a');
-        e.type = 'button';
-        e.id = i;
-        e.value = '削除';
-        e.name = 'remove_[]';
-        e.addEventListener("click", function(){remove(this)});
-        table5.appendChild(e);
+        var add_button = document.createElement("input");
+        add_button.classList.add('button');
+        add_button.type = 'button';
+        add_button.id = i;
+        add_button.value = '削除';
+        add_button.name = 'remove_[]';
+        add_button.addEventListener("click", function(){remove(this)});
+        table5.appendChild(add_button);
         table.appendChild(table5);
 
          var parent = document.getElementById('form_area');

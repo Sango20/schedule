@@ -1,70 +1,70 @@
 @extends('layouts.app')
 @section('content')
 <html>
-
+    
 <head>
-<link href='chart.js/dist/chartjs.css' rel='stylesheet' />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script src="https://unpkg.com/chartjs-plugin-colorschemes"></script>
-<script src="chart.js/dist/chartjs-plugin-datalabels.js"></script>
+    <link href = 'chart.js/dist/chartjs.css' rel='stylesheet' />
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src = "https://unpkg.com/chartjs-plugin-colorschemes"></script>
+    <script src = "chart.js/dist/chartjs-plugin-datalabels.js"></script>
 </head>
 
 <body>
-<div class="bg_pattern Diagonal_v2"></div>
-<div class="section"> 
+    <div class = "bg_pattern Diagonal_v2"></div>
+    <div class = "section"> 
     <h2>作成したスケジュール</h2>
-  <canvas id="myChart"></canvas>
-   <span class="anaclo-num anaclo-0">0</span>
-  <span class="anaclo-num anaclo-3">3</span>
-  <span class="anaclo-num anaclo-6">6</span>
-  <span class="anaclo-num anaclo-9">9</span>
-  <span class="anaclo-num anaclo-12">12</span>
-  <span class="anaclo-num anaclo-15">15</span>
-  <span class="anaclo-num anaclo-18">18</span>
-  <span class="anaclo-num anaclo-21">21</span>
- 
-</div> 
-<table>
-    <td id="samplebox">
-    </td>
+        <canvas id = "myChart"></canvas>
+        <span class = "anaclo-num anaclo-0">0</span>
+        <span class = "anaclo-num anaclo-3">3</span>
+        <span class = "anaclo-num anaclo-6">6</span>
+        <span class = "anaclo-num anaclo-9">9</span>
+        <span class = "anaclo-num anaclo-12">12</span>
+        <span class = "anaclo-num anaclo-15">15</span>
+        <span class = "anaclo-num anaclo-18">18</span>
+        <span class = "anaclo-num anaclo-21">21</span>
+    </div> 
+    
+    <p id = "form_area"></p>
+    
+    <table id = "form_area2">
+        <th>タイトル</th>
+        <th>予定時刻</th>
+        <th>実行時間（分）</th>
+        <th>内容</th>
+        <tr>
+            <td><input class = "b" type = "hidden" name = "dates"></td>
+        </tr>
     </table>
-    <p id="form_area"></p>
-    <table id="form_area2">
-        
-        
-                                <th>タイトル</th>
-                                <th>予定時刻</th>
-                                <th>実行時間（分）</th>
-                                <th>内容</th>
-                <tr>
-                    <td><input class="b" type="hidden" name="dates"></td>
-                </tr>
-        </table>
-     <input class="a" type="button" onclick="location.href='/home'" value="戻る">
+    
+     <input class = "a" type = "button" onclick = "location.href='/home'" value="戻る">
+
 <script>
-    var table = document.createElement("p");
-    var parent = document.getElementById('form_area');
-    var number1=0;
-    var count = [];
-    count[0] = 0;
+    var table    = document.createElement("p");
+    var parent   = document.getElementById('form_area');
+    var schedule_number  = 0;
+    console.log(schedule_number);
+    var count    = [];
+        count[0] = 0;
     var k = 1;
+    
     @foreach($store_schedules as $store_schedule)
     {
-        var make = document.createElement("input");
-        make.type = 'text';
-        make.id = "set_schedule_" + number1;
-        make.name = "{{$store_schedule->title}}";
-        make.title = "{{$store_schedule->start_time}}";
-        make.value = "{{$store_schedule->time}}";
-        table.appendChild(make);
-        number1++;
+        var make_schedule    = document.createElement("input");
+        make_schedule.type   = 'text';
+        make_schedule.id     = "set_schedule_" + number1;
+        make_schedule.name   = "{{$store_schedule->title}}";
+        make_schedule.title  = "{{$store_schedule->start_time}}";
+        make_schedule.value  = "{{$store_schedule->time}}";
+        table.appendChild(make_schedule);
+        schedule_number++;
         parent.appendChild(table);
-        console.log(make);
     }
+    
     @endforeach
-     if (number1<=23)
+    
+     if (schedule_number<=23)
     {
             var c = document.createElement("input");
             c.type = 'text';
@@ -75,78 +75,80 @@
             table.appendChild(c);
             console.log(c);
     }
+    
     var set =[]; 
-var set2 =[];
-set2[0]=0;
-    for(j=0;j<number1;j++)
-{
-    var www = document.getElementById("set_schedule_" + j).title;
-    if(www!=0)
+    var set2 =[];
+    set2[0]=0;
+    
+    for( j = 0; j < schedule_number; j++ )
     {
-        
-        var www1 = parseFloat(www);
-        set[www1]=document.getElementById("set_schedule_"+ j).name;
-        add=document.getElementById("set_schedule_"+ j).value / 60;
-        compare=24-www1;
-        if(add>=1)
+        var www = document.getElementById("set_schedule_" + j).title;
+        if(www!=0)
         {
-            if(compare>=add)
-            { 
-                set2[www1]=add;
-                var calc = Math.ceil(add);
-                for(let sum=1;sum<calc;sum++)
-                {
-                    set[www1+sum]="";
-                    set2[www1+sum]=0;
-                    
-                }
-            count[k] = www1;
-            k++;
-            }else
+            var www1 = parseFloat(www);
+            set[www1] = document.getElementById("set_schedule_"+ j).name;
+            add = document.getElementById("set_schedule_"+ j).value / 60;
+            compare=24-www1;
+            if(add>=1)
             {
-                set2[www1]=compare;
-                console.log("a");
-                var calc = Math.ceil(compare);
-                console.log(calc);
-                for(let sum=1;sum<calc;sum++)
-                {
-                    set[www1+sum]="";
-                    set2[www1+sum]=0;
-                }
-                var compare2=add-compare;
-                var calc2 = Math.ceil(compare2);
-                console.log(compare2);
-                set[0]=set[www1];
-                set2[0]=compare2;
-                for(let sum=1;sum<calc2;sum++)
-                {
-                    set[sum]="";
-                    set2[sum]=0;
-                }
-                console.log(set[0]);
-                console.log(set2[0]);
+                if(compare>=add)
+                { 
+                    set2[www1]=add;
+                    var calc = Math.ceil(add);
+                    for(let sum=1;sum<calc;sum++)
+                    {
+                        set[www1+sum]="";
+                        set2[www1+sum]=0;
+                    }
                 count[k] = www1;
                 k++;
+                }
+                else
+                {
+                    set2[www1]=compare;
+                    console.log("a");
+                    var calc = Math.ceil(compare);
+                    console.log(calc);
+                    for(let sum=1;sum<calc;sum++)
+                    {
+                        set[www1+sum]="";
+                        set2[www1+sum]=0;
+                    }
+                    var compare2=add-compare;
+                    var calc2 = Math.ceil(compare2);
+                    console.log(compare2);
+                    set[0]=set[www1];
+                    set2[0]=compare2;
+                    for(let sum=1;sum<calc2;sum++)
+                    {
+                        set[sum]="";
+                        set2[sum]=0;
+                    }
+                    console.log(set[0]);
+                    console.log(set2[0]);
+                    count[k] = www1;
+                    k++;
+                }
             }
-        }
         
-    }
-    else
-    {
+        }
+        else
+        {
         break;
+        }
     }
-}
-count[k+1]=24;
-  count.sort(function(a, b){return a - b});
+    
+    count[k+1]=24;
+    count.sort(function(a, b){return a - b});
          var kkk=0;
          console.log(count);
          var num5;
-for(i=0;i<=23;i++)
-{
-    while(set2[i]!=num5)
+    for(i=0;i<=23;i++)
     {
-        i++;
-    }
+        while(set2[i]!=num5)
+        {
+            i++;
+        }
         var long = count[kkk+1] - count[kkk] -set2[count[kkk]];
         console.log(long);
         if (long>0)
@@ -154,9 +156,9 @@ for(i=0;i<=23;i++)
             set[i]=document.getElementById("no_schedule_0").name;
             set2[i]=long;
         }
-        i=count[kkk+1];
+        i = count[kkk+1];
         kkk++;
-}
+    }
 console.log(set);
 console.log(set2);
 

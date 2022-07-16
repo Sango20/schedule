@@ -1,17 +1,20 @@
-h1{
-    	position:relative;
-			top: 100px;
-    text-align: center;
+h1
+{
+  position:relative;
+	top: 100px;
+  text-align: center;
 }
-.button{
-    display: inline-block;
+
+.button
+{
+  display: inline-block;
   padding: 150px;
   text-decoration: none;
   background: #668ad8;/*ボタン色*/
   color: #FFF;
-  	position:relative;
-			top: 200px;
-			left: 25px;
+  position:relative;
+		top: 200px;
+		left: 25px;
   border-bottom: solid 10px #627295;
   border-radius: 3px;
 }
@@ -20,7 +23,8 @@ h1{
 .bg_pattern
 ==============*/
 
-.bg_pattern {
+.bg_pattern 
+{
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +34,9 @@ h1{
   opacity: 0.4;
   z-index: -1;
 }
-.Diagonal_v2 {
+
+.Diagonal_v2 
+{
   background: repeating-linear-gradient( -45deg, #ffc107, #ffc107 10px, #ffe9a7 10px, #ffe9a7 50px );
 }
 
@@ -38,12 +44,14 @@ h1{
 base
 ==============*/
 
-html, body {
+html, body 
+{
   margin: 0;
   padding: 0;
 }
 
-body {
+body 
+{
   font-family: YuGothic, "游ゴシック体", "Yu Gothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   line-height: 1.8;
 }

@@ -1,5 +1,6 @@
-.a{
-    display: inline-block;
+.button
+{
+  display: inline-block;
   padding: 10px 10px;
   text-decoration: none;
   background: #668ad8;/*ボタン色*/
@@ -8,19 +9,22 @@
   border-radius: 3px;
 }
 
-.b{
-    display: block;
+.box
+{
+  display: block;
   padding: 10px 10px;
   border-radius: 3px;
 }
 
-.c{
-    display: block;
+.inline_box
+{
+  display: block;
   padding: 10px 150px;
   border-radius: 3px;
 }
 
-.bg_pattern {
+.bg_pattern 
+{
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +34,9 @@
   opacity: 0.4;
   z-index: -1;
 }
-.Diagonal_v2 {
+
+.Diagonal_v2 
+{
   background: repeating-linear-gradient( -45deg, #ffc107, #ffc107 10px, #ffe9a7 10px, #ffe9a7 50px );
 }
 
@@ -38,15 +44,18 @@
 base
 ==============*/
 
-html, body {
+html, body 
+{
   margin: 0;
   padding: 0;
 }
-body {
+body 
+{
   font-family: YuGothic, "游ゴシック体", "Yu Gothic", "ヒラギノ角ゴ Pro", "Hiragino Kaku Gothic Pro", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
   letter-spacing: .025em;
   line-height: 1.8;
 }
+
 * {
   box-sizing: border-box;
 }

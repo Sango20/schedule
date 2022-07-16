@@ -51,7 +51,7 @@ class ScheduleController extends Controller
     {
         $number = auth()->user()->id;
         $items = \App\Routine_Schedule::select('id')->where([["user_id",'=', $number]])->get();
-        $number5=count($items);
+        $number5 = count($items);
         $value = 0;
         $titles = (array)$request->title;
         $start_times = (array)$request->start_times;
@@ -245,18 +245,17 @@ class ScheduleController extends Controller
         return view('schedules/view');
     }
     
-    public function log($date,Store_Schedule $store_schdule)
+    public function log($date,Store_Schedule $store_schedule)
     {
         $number = auth()->user()->id;
-         $data = ['date' => $date];
-        return view("schedules/log",$data)->with(['store_schedules' => $store_schdule->where([["user_id",'=', $number],["date",'=',$date]])->get()]);
+        $data = ['date' => $date];
+        return view("schedules/log",$data)->with(['store_schedules' => $store_schedule->where([["user_id",'=', $number],["date",'=',$date]])->get()]);
     }
     
     public function today(Store_Schedule $store_schedule)
     {
         $number = auth()->user()->id;
-        $date = now();
-        dd($date);
+        $date = date("Y-m-d");
         $set = Store_Schedule::where([["user_id",'=', $number],["date",'=',$date]])->get();
         $set2 = Store_Schedule::where([["user_id",'=', $number],["date",'=',"2001-4-20"]])->get();
         if($set==$set2)
@@ -264,9 +263,10 @@ class ScheduleController extends Controller
         $announce = "スケジュールが登録されていません";
         $announces = ['announce' => $announce];
         return view("schedules/index2",$announces);
-        }else
+        }
+        else
         {
-        return view("schedules/today")->with(['store_schedules' => $store_schdule->where([["user_id",'=', $number],["date",'=',$date]])->get()]);
+        return view("schedules/today")->with(['store_schedules' => $store_schedule->where([["user_id",'=', $number],["date",'=',$date]])->get()]);
         }
     }
 }
